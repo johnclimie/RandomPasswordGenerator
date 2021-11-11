@@ -19,9 +19,52 @@ function writePassword() {
   var incNumbers = confirm("Include numbers?");
   var incSpecial = confirm("Include special characters?");
 
-  function generatePassword(length, lowercase, upppercase, numbers, special) {
-    if (lowercase || upppercase || numbers || special) {
-      return "testing";
+  //Makes an array of character codes
+  function charLowToHigh(low, high) {
+    var array = [];
+    for (let i = low; i <= high; i++) {
+      array.push(i);
+    }
+    return array;
+  }
+
+  //Makes an array of specific character codes
+  var lowerCharCodes = charLowToHigh(97, 122);
+  var upperCharCodes = charLowToHigh(65, 90);
+  var numberCharCodes = charLowToHigh(48, 57);
+  var specialCharCodes = charLowToHigh(32, 47).concat(charLowToHigh(58, 64)).concat(charLowToHigh(58, 126));
+
+  function generatePassword(length, lowercase, uppercase, numbers, special) {
+    //Makes sure at least one is selected, if not, alert displays "Please try again"
+    if (lowercase || uppercase || numbers || special) {
+      //Makes an array of character codes, depending on which characters were selected
+      var charArray = [];
+      if (lowercase) {
+        charArray.push(...lowerCharCodes);
+      };
+      if (uppercase) {
+        charArray.push(...upperCharCodes);
+      };
+      if (numbers) {
+        charArray.push(...numberCharCodes);
+      };
+      if (special) {
+        charArray.push(...specialCharCodes);
+      };
+
+      console.log(charArray);
+
+      var passwordArray = [];
+
+      for (var i = 0; i <= length; i++) {
+        var character = charArray[Math.floor(Math.random() * length)];
+
+        passwordArray.push(String.fromCharCode(character));
+      }
+
+      console.log(passwordArray);
+
+
     } else {
       alert("Please try again");
       return "";
@@ -31,6 +74,8 @@ function writePassword() {
 
 
   var password = generatePassword(passLength, incLowerCase, incUpperCase, incNumbers, incSpecial);
+
+  console.log(password);
 
   var passwordText = document.querySelector("#password");
 
