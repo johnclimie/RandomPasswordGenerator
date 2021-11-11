@@ -32,7 +32,7 @@ function writePassword() {
   var lowerCharCodes = charLowToHigh(97, 122);
   var upperCharCodes = charLowToHigh(65, 90);
   var numberCharCodes = charLowToHigh(48, 57);
-  var specialCharCodes = charLowToHigh(32, 47).concat(charLowToHigh(58, 64)).concat(charLowToHigh(58, 126));
+  var specialCharCodes = charLowToHigh(32, 47).concat(charLowToHigh(58, 64)).concat(charLowToHigh(91, 96)).concat(charLowToHigh(123, 126));
 
   function generatePassword(length, lowercase, uppercase, numbers, special) {
     //Makes sure at least one is selected, if not, alert displays "Please try again"
@@ -41,28 +41,26 @@ function writePassword() {
       var charArray = [];
       if (lowercase) {
         charArray.push(...lowerCharCodes);
-      };
+      }
       if (uppercase) {
         charArray.push(...upperCharCodes);
-      };
+      }
       if (numbers) {
         charArray.push(...numberCharCodes);
-      };
+      }
       if (special) {
         charArray.push(...specialCharCodes);
-      };
+      }
 
-      console.log(charArray);
-
+      //Create Password Array that will hold all the character codes at random, and will then be converted into characters and returned in unity
       var passwordArray = [];
-
-      for (var i = 0; i <= length; i++) {
-        var character = charArray[Math.floor(Math.random() * length)];
+      for (var i = 0; i < length; i++) {
+        var character = charArray[Math.floor(Math.random() * charArray.length)];
 
         passwordArray.push(String.fromCharCode(character));
       }
 
-      console.log(passwordArray);
+      return passwordArray.join('');
 
 
     } else {
@@ -71,7 +69,6 @@ function writePassword() {
     }
  
   }
-
 
   var password = generatePassword(passLength, incLowerCase, incUpperCase, incNumbers, incSpecial);
 
