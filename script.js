@@ -8,7 +8,9 @@ function writePassword() {
   
   //Asks for length of password, and cancels function if under 8 or above 128 characters
   var passLength = prompt("Choose a length between 8 and 128 Characters");
-  if (passLength < 8 || passLength > 128) {
+  if (passLength == null) {
+    return;
+  } else if (passLength < 8 || passLength > 128) {
     alert("Must be between 8 and 128 characters");
     return;
   }
@@ -70,9 +72,8 @@ function writePassword() {
  
   }
 
+  //Sets password variable to random password
   var password = generatePassword(passLength, incLowerCase, incUpperCase, incNumbers, incSpecial);
-
-  console.log(password);
 
   var passwordText = document.querySelector("#password");
 
